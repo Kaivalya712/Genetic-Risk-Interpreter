@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genetic Variant Risk AI Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 Genetic Variant Risk AI Agent</h1>
+        <p class="subtitle">Confidence-aware clinical decision support for genetic variants</p>
+
+        <div class="card">
+            <label for="variantInput">Enter Variant</label>
+            <input type="text" id="variantInput" placeholder="BRCA1 c.5266dupC">
+
+            <div class="example-row">
+                <button class="example-btn" type="button" onclick="setExample('BRCA1 c.5266dupC')">BRCA1 c.5266dupC</button>
+                <button class="example-btn" type="button" onclick="setExample('TP53 c.215C>G')">TP53 c.215C>G</button>
+                <button class="example-btn" type="button" onclick="setExample('CFTR c.1521_1523delCTT')">CFTR c.1521_1523delCTT</button>
+            </div>
+
+            <button class="analyze-btn" type="button" onclick="analyzeVariant()">Analyze Variant</button>
+        </div>
+
+        <div id="resultCard" class="card hidden">
+            <h2>Analysis Report</h2>
+
+            <div class="result-grid">
+                <div class="metric">
+                    <span class="metric-label">Prediction</span>
+                    <span id="prediction" class="metric-value"></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Pathogenic Probability</span>
+                    <span id="probability" class="metric-value"></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Confidence</span>
+                    <span id="confidence" class="metric-value"></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Difficulty Score</span>
+                    <span id="difficulty" class="metric-value"></span>
+                </div>
+            </div>
+
+            <div class="confidence-wrap">
+                <span>Confidence Level</span>
+                <div class="confidence-bar">
+                    <div id="confidenceFill" class="confidence-fill"></div>
+                </div>
+            </div>
+
+            <div id="recommendationBox" class="recommendation"></div>
+        </div>
+
+        <div id="explanationCard" class="card hidden">
+            <h2>Why the model predicted this</h2>
+            <ul id="explanationList"></ul>
+        </div>
+
+        <div id="feedbackCard" class="card hidden">
+            <h2>Expert Feedback</h2>
+            <p>This case is uncertain. You can provide the true label for learning.</p>
+
+            <div class="feedback-row">
+                <button class="feedback-btn pathogenic-btn" onclick="submitFeedback(1)">Mark as Pathogenic</button>
+                <button class="feedback-btn benign-btn" onclick="submitFeedback(0)">Mark as Benign</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Learning Agent Status</h2>
+            <p>Stored feedback examples: <strong id="bufferCount">0</strong></p>
+            <button class="retrain-btn" onclick="retrainModel()">Retrain Model</button>
+            <p id="statusMessage"></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

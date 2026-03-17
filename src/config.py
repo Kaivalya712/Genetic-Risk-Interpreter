@@ -1,0 +1,8 @@
+LOW_CONFIDENCE_THRESHOLD = 0.4
+
+EXAMPLE_VARIANTS = [
+    "BRCA1 c.5266dupC",
+    "TP53 c.215C>G",
+    "CFTR c.1521_1523delCTT",
+    "NF1 c.6855C>A",
+]
